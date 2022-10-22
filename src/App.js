@@ -1,25 +1,39 @@
 import logo from './logo.svg';
+import {
+  createBrowserRouter, createRoutesFromElements, RouterProvider, Route, Link, useNavigate, NavLink, BrowserRouter,
+} from "react-router-dom";
 import './App.css';
+import Home from './page/Home';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min';
+import '../src/css/common.css';
+import Loader from './page/Loader';
+import SingleBlog from './page/SingleBlog';
+import { Footer, Navbar } from './page/Layout';
 
+
+// Router Doc Link https://reactrouter.com/en/main/start/overview
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const router = createBrowserRouter([
+    { path: "/", element: <><h2>Welcome React Blog</h2></> },
+    { path: "/home", element: <>
+      <Navbar title="Welcome Blogs"/>
+      <Home />
+      <Footer />
+    </> },
+
+    {path:'/blog/:id', element: <>
+      <Navbar title="Single Blog"/>
+      <SingleBlog />
+      <Footer />
+    </>}
+]);
+
+return (<>
+<Loader start={false} />
+<RouterProvider router={router} />
+</>
+)
 }
 
 export default App;
